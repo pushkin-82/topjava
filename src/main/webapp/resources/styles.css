@@ -1,0 +1,23 @@
+.table {
+    border: 1px solid black;
+}
+.tableHead {
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: beige;
+    text-align: center;
+    padding: 10px;
+}
+.rowOdd {
+    font-family: monospace;
+    font-size: 15px;
+    background-color: lightgoldenrodyellow;
+    text-align: center;
+}
+.rowEven{
+    font-family: monospace;
+    font-size: 15px;
+    background-color: lightcyan;
+    text-align: center;
+}
