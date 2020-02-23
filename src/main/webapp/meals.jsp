@@ -7,9 +7,11 @@
     <link href="resources/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h3><a href="index.html">Home</a> <a href="users.jsp">Users</a></h3>
+<h3><a href="index.html">Home</a> <a href="users">Users</a></h3>
 <hr>
 <h2>Meals</h2>
+
+<h2><a href="meals?action=create">Add new meal</a></h2>
 
 <table class="table">
     <tr class="tableHead">
@@ -26,8 +28,8 @@
             <td>${meal.dateTime.format(formatter)}</td>
             <td>${meal.description}</td>
             <td>${meal.calories}</td>
-            <td>?</td>
-            <td>x</td>
+            <td><a href="meals?action=update&id=${meal.id}">edit</a></td>
+            <td><a href="meals?action=delete&id=${meal.id}">x</a></td>
         </tr>
 
     </c:forEach>
