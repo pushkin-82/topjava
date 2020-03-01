@@ -27,12 +27,21 @@ public class MealsUtil {
             new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410)
     );
 
+    public static final List<Meal> MEALS_USER_2 = Arrays.asList(
+            new Meal(LocalDateTime.of(2013, Month.JANUARY, 21, 11, 0), "Завтрак", 700),
+            new Meal(LocalDateTime.of(2013, Month.JANUARY, 21, 12, 0), "Обед", 900),
+            new Meal(LocalDateTime.of(2013, Month.JANUARY, 21, 17, 0), "Ужин", 400),
+            new Meal(LocalDateTime.of(2014, Month.JULY, 12, 9, 0), "Завтрак", 600),
+            new Meal(LocalDateTime.of(2014, Month.JULY, 12, 14, 0), "Обед", 1000),
+            new Meal(LocalDateTime.of(2014, Month.JULY, 12, 22, 0), "Ужин", 510)
+    );
+
     public static List<MealTo> getTos(Collection<Meal> meals, int caloriesPerDay) {
         return filteredByStreams(meals, caloriesPerDay, meal -> true);
     }
 
     public static List<MealTo> getFilteredTos(Collection<Meal> meals, int caloriesPerDay, LocalTime startTime, LocalTime endTime) {
-        return filteredByStreams(meals, caloriesPerDay, meal -> DateTimeUtil.isBetweenInclusive(meal.getTime(), startTime, endTime));
+        return filteredByStreams(meals, caloriesPerDay, meal -> DateTimeUtil.isBetween(meal.getTime(), startTime, endTime));
     }
 
     public static List<MealTo> filteredByStreams(Collection<Meal> meals, int caloriesPerDay, Predicate<Meal> filter) {
