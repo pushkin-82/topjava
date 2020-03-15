@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 
@@ -30,4 +29,7 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     List<Meal> getBetweenHalfOpen(@Param("startDateTime") LocalDateTime startDateTime,
                                   @Param("endDateTime") LocalDateTime endDateTime,
                                   @Param("userId") int userId);
+
+    @Query("SELECT m FROM Meal m LEFT JOIN FETCH m.user u WHERE m.id = :id AND u.id = :userId")
+    Meal getByIdAndUserId(@Param("id") int id, @Param("userId") int userId);
 }
