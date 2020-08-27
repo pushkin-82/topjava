@@ -8,7 +8,7 @@
 </head>
 <body>
     <h3><a href="index.html">Home</a></h3>
-    <h3>Meals test page</h3>
+    <h2><a href="meals?action=create">Add new meal</a></h2>
 
     <table class="table">
         <tr class="tableHead">

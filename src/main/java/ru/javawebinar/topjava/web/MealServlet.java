@@ -47,19 +47,18 @@ public class MealServlet extends HttpServlet {
             case "create":
                 Meal meal = new Meal(-1, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "default", 1000);
                 request.setAttribute("meal", meal);
-                request.getRequestDispatcher("/editMeal.jsp").forward(request, response);
+                request.getRequestDispatcher("/editForm.jsp").forward(request, response);
                 break;
             case "update":
                 Meal updMeal = mealRepository.getById(Integer.parseInt(request.getParameter("id")));
                 request.setAttribute("meal", updMeal);
-                request.getRequestDispatcher("/editMeal.jsp").forward(request, response);
+                request.getRequestDispatcher("/editForm.jsp").forward(request, response);
                 break;
             case "delete":
                 int id = Integer.parseInt(request.getParameter("id"));
                 mealRepository.delete(id);
                 response.sendRedirect("meals");
                 break;
-            case "getall":
             default:
                 List<MealTo> mealList = MealsUtil.createToList(mealRepository.getAll());
                 request.setAttribute("mealList", mealList);
@@ -68,7 +67,19 @@ public class MealServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.debug("POST request");
+        request.setCharacterEncoding("UTF-8");
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
+        String description = request.getParameter("description");
+        int calories = Integer.parseInt(request.getParameter("calories"));
+
+        Meal newMeal = new Meal(id, dateTime, description, calories);
+
+        mealRepository.save(newMeal);
+
+        response.sendRedirect("meals");
     }
 }
