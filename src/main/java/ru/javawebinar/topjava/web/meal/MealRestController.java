@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.to.MealTo;
+import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.SecurityUtil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
@@ -48,5 +52,15 @@ public class MealRestController {
         service.update(SecurityUtil.authUserId(), meal);
     }
 
+    public List<MealTo> getAllFiltered(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
+        log.info("getAll filtered by date & time");
 
+        LocalDate startLD = startDate == null ? LocalDate.MIN : startDate;
+        LocalDate endLD = endDate == null ? LocalDate.MAX : endDate;
+        LocalTime startLT = startTime == null ? LocalTime.MIN : startTime;
+        LocalTime endLT = endTime == null ? LocalTime.MAX : endTime;
+
+        return MealsUtil.getFilteredTos(service.getAllFilteredByDate(SecurityUtil.authUserId(), startLD, endLD),
+                SecurityUtil.authUserCaloriesPerDay(), startLT, endLT);
+    }
 }
