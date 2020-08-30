@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Repository
-@Profile(Profiles.POSTGRES_DB)
+@Profile(Profiles.HSQL_DB)
 public class JdbcHsqldbMealRepository extends JdbcMealRepository {
 
     @Autowired
