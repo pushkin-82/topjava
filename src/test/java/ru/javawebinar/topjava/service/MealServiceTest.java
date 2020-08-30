@@ -32,7 +32,7 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 public abstract class MealServiceTest extends ServiceTest {
 
     @Autowired
-    private MealService service;
+    protected MealService service;
     @Autowired
     private MealRepository repository;
 
